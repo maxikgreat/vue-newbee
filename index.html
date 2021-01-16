@@ -33,17 +33,36 @@
               <p class="read_more">Read More</p>
             </article>
             <article>
-              <h3>Vue 3 Looping</h3>
-              <p>
-                I'm baby chambray street art thundercats occupy four loko
-                church-key disrupt. Shaman neutra bushwick chicharrones, tousled
-                air plant lomo williamsburg. Listicle aesthetic whatever prism,
-                ennui glossier asymmetrical scenester austin intelligentsia
-                cronut raw denim umami mumblecore. Lo-fi meh austin, selfies
-                hell of tacos 90's vinyl banh mi tbh bicycle rights mumblecore
-                tumeric.
-              </p>
-              <p class="read_more">Read More</p>
+              <h3>Vue 3 Counter</h3>
+              <span>Counter {{counter}}</span>
+              <div>
+                <button
+                  v-on:click="counter++"
+                >+</button>
+                <button
+                  v-on:click="counter--"
+                >-</button>
+              </div>
+            </article>
+            <hr />
+            <article>
+              <h3>Todos</h3>
+              <h4>Current value: {{value}}</h4>
+              <input
+                v-bind:placeholder="placeholder"
+                v-bind:value="value"
+                v-on:input="inputHandler"
+                v-on:keypress.enter="addNote"
+              />
+              <button
+                v-on:click="addNote"
+              >Add todo</button>
+              <ul style="flex-direction: column">
+                <li v-for="(note, index) in notes" style="margin: 0">
+                  {{index + 1}}. {{note}}
+                  <button v-on:click="deleteNote(index)">Delete</button>
+                </li>
+              </ul>
             </article>
           </section>
         </div>

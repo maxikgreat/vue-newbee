@@ -31,10 +31,30 @@ Vue.createApp({
 	}
 }).mount("header");
 
-Vue.createApp({
+const App = {
 	data() {
 		return {
 			posts,
+			counter: 0,
+			placeholder: "Enter todo",
+			value: '',
+			notes: []
+		}
+	},
+	methods: {
+		inputHandler(event) {
+			console.log(event.target.value);
+			this.value = event.target.value;
+		},
+		addNote() {
+			this.notes.push(this.value);
+			this.value = '';
+		},
+		deleteNote(index) {
+			this.notes.splice(index, 1);
 		}
 	}
-}).mount('#blog');
+};
+
+Vue.createApp(App).mount('#blog');
+
