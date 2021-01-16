@@ -49,20 +49,22 @@
               <h3>Todos</h3>
               <h4>Current value: {{value}}</h4>
               <input
-                v-bind:placeholder="placeholder"
-                v-bind:value="value"
-                v-on:input="inputHandler"
-                v-on:keypress.enter="addNote"
+                :placeholder="placeholder"
+                :value="value"
+                @input="inputHandler"
+                @keypress.enter="addNote"
               />
               <button
-                v-on:click="addNote"
+                @click="addNote"
               >Add todo</button>
-              <ul style="flex-direction: column">
+              <ul style="flex-direction: column" v-if="notes.length !== 0">
                 <li v-for="(note, index) in notes" style="margin: 0">
-                  {{index + 1}}. {{note}}
-                  <button v-on:click="deleteNote(index)">Delete</button>
+                  {{index + 1}}. {{toUpperCase(note)}}
+                  <button @click="deleteNote(index)">Delete</button>
                 </li>
               </ul>
+              <span v-else>There's no notes here</span>
+              <span>Count of notes: {{notes.length}} | Double count: {{doubleCount}} </span>
             </article>
           </section>
         </div>

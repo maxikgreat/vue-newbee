@@ -47,11 +47,27 @@ const App = {
 			this.value = event.target.value;
 		},
 		addNote() {
+			if (this.value === '') return;
 			this.notes.push(this.value);
 			this.value = '';
 		},
 		deleteNote(index) {
 			this.notes.splice(index, 1);
+		},
+		toUpperCase(item) {
+			return item.toUpperCase(item);
+		}
+	},
+	computed: {
+		doubleCount() {
+			return this.notes.length * 2;
+		}
+	},
+	watch: {
+		value(value) {
+			if (value.length > 10) {
+				this.value = '';
+			}
 		}
 	}
 };
