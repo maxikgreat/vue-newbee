@@ -8,8 +8,12 @@
       href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500"
       rel="stylesheet"
     />
-
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <div>
@@ -26,7 +30,7 @@
       <main>
         <div class="blog_wrapper">
           <!-- BLOG SECTION -->
-          <section id="blog">
+          <section id="blog" v-cloak>
             <article v-for="post in posts">
               <h3>{{post.title}}</h3>
               <p>{{post.body}}</p>
@@ -46,12 +50,11 @@
             </article>
             <hr />
             <article>
-              <h3>Todos</h3>
+              <h3 :style="{color: value.length < 5 ? 'darkred' : 'blue'}">Todos</h3>
               <h4>Current value: {{value}}</h4>
               <input
                 :placeholder="placeholder"
-                :value="value"
-                @input="inputHandler"
+                v-model="value"
                 @keypress.enter="addNote"
               />
               <button
@@ -59,13 +62,44 @@
               >Add todo</button>
               <ul style="flex-direction: column" v-if="notes.length !== 0">
                 <li v-for="(note, index) in notes" style="margin: 0">
-                  {{index + 1}}. {{toUpperCase(note)}}
+                  <span :class="note.length > 5 ? 'primary' : 'bold'">{{index + 1}}. {{toUpperCase(note)}}</span>
                   <button @click="deleteNote(index)">Delete</button>
                 </li>
               </ul>
               <span v-else>There's no notes here</span>
               <span>Count of notes: {{notes.length}} | Double count: {{doubleCount}} </span>
             </article>
+          </section>
+          <section id="section2" v-cloak>
+            <div>{{title}}</div>
+            <div v-text="title"></div>
+            <div v-once>{{title}}</div>
+            <button @click="title = 'Changed title'">change title</button>
+            <div v-pre>{{title}}</div>
+            <div v-html="html"></div>
+            <ul>
+              <li v-for="item in 7">{{item}}</li>
+            </ul>
+            <ul>
+              <li v-for="(field, key) in person"><b>{{key}}:</b> {{field}}</li>
+            </ul>
+            <input
+              type="text"
+              @keypress.enter="addItem"
+              ref="inputRef"
+            />
+            <ul v-if="items.length">
+              <li
+                v-for="(item, index) in items"
+                @click="removeItem(index), log(item)"
+                :key="item"
+              >
+                <b>{{index}}:</b> {{item}}
+                <input type="text" @click.stop />
+              </li>
+            </ul>
+            <div v-else>No elements</div>
+            <div v-show="items.length === 0">No elements (show)</div>
           </section>
         </div>
       </main>

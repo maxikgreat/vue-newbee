@@ -42,10 +42,11 @@ const App = {
 		}
 	},
 	methods: {
-		inputHandler(event) {
-			console.log(event.target.value);
-			this.value = event.target.value;
-		},
+		// replaced with v-model
+		// inputHandler(event) {
+		// 	console.log(event.target.value);
+		// 	this.value = event.target.value;
+		// },
 		addNote() {
 			if (this.value === '') return;
 			this.notes.push(this.value);
@@ -73,4 +74,37 @@ const App = {
 };
 
 Vue.createApp(App).mount('#blog');
+
+
+// next course section
+
+Vue.createApp({
+	data: () => ({
+		title: 'Im new section',
+		html: '<div>Vue 3 App</div>',
+		person: {
+			firstName: 'Max',
+			lastName: 'Lavrov',
+			age: 21
+		},
+		items: [1, 2, 3, 4, 5, 6]
+	}),
+	methods: {
+		addItem() {
+			this.items.unshift(this.$refs.inputRef.value);
+			this.$refs.inputRef.value = '';
+		},
+		removeItem(index) {
+			this.items.splice(index, 1);
+		},
+		log(item) {
+			console.log(item);
+		}
+	},
+	computed: {
+		pairNumbers() {
+			return this.items.filter(item => item % 2 === 0)
+		}
+	}
+}).mount('#section2')
 
